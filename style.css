@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Nunito", sans-serif;
+}
+
+body {
+  background-image: url("Imagens/fundo-de-textura.jpg") !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.container {
+  width: 450px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  max-width: 90%;
+}
+
+.header {
+  padding: 5px;
+  margin-top: 15px;
+  margin-left: 90px;
+  color: #443106;
+  text-shadow: 4px 4px 10px rgba(100, 65, 0, 0.2);
+}
+
+.form {
+  padding: 5px;
+}
+
+.form-control {
+  margin-bottom: 5px;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.form-control label {
+    padding: 2px;
+    display: inline-block;
+    font-size: 13px;
+}
+
+.form-control input {
+    border: 2px solid #f0f0f0;
+    display: block;
+    border-radius: 10px;
+    font-size: 11px;
+    width: 100%;
+    padding: 10px;
+}
+
+.form-control i {
+  position: absolute;
+  top: 45px;
+  right: 25px;
+  visibility: hidden;
+  font-size: 18px;
+}
+
+.form-control small {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    visibility: hidden;
+}
+
+.form button {
+  background: linear-gradient(145deg, #cead71, #f5e1d0);
+  color: #443106;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-left: 150px;
+}
+
+/* Efeito ao passar o mouse */
+.form button:hover {
+ background: linear-gradient(145deg, #cead71, #f5e1d0);
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(100, 58, 0, 0.2);
+}
+
+/* Efeito de clique */
+.form button:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 6px rgba(100, 48, 0, 0.25);
+}
+
+.form-control.success input {
+  border-color: #2ecc71;
+}
+
+.form-control.error input {
+  border-color: #e74c3c;
+}
+
+.form-control.success i.bi-check-circle {
+  color: #2ecc71;
+  visibility: visible;
+}
+
+.form-control.error i.bi-exclamation-circle {
+  color: #e74c3c;
+  visibility: visible;
+}
+ 
+.form-control.error small {
+  visibility: visible;
+  color: #e74c3c;
+}
+
+/* Formatação do menu */
+
+#cabecalho{
+    display: flex;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+#menu {
+    margin-top: 10px;
+  
+}
+ 
