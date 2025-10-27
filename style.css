@@ -7,137 +7,171 @@
   font-family: "Nunito", sans-serif;
 }
 
+
+#cabecalho {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
+  z-index: 1000;
+  background: linear-gradient(145deg, #cead71, #f5e1d0);
+  color: #443106;
+}
+
+#cabecalho h1 {
+  font-size: 25px;
+  color: #443106;
+  margin: 0;
+  font-weight: 600;
+}
+
+#menu a {
+  text-decoration: none;
+  color: #443106;
+  font-weight: 600;
+  font-size: 15px;
+  transition: color 0.3s;
+}
+
+#menu a:hover {
+  color: #443106;
+}
+
+#menu ul {
+  list-style: none; /* remove as bolinhas da lista */
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+#menu li {
+  margin: 0 25px;
+}
+
 body {
   background-image: url("Imagens/fundo-de-textura.jpg") !important;
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
-  min-height: 90vh;
+  min-height: 100vh;
+  padding-top: 100px; /* espaço pro cabeçalho fixo */
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 30px;
+  align-items: flex-start;
 }
 
 .container {
-  width: 450px;
+  width: 800px;
   border-radius: 10px;
   background-color: #fafafa;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  max-width: 90%;
+  padding: 20px;
 }
 
+/*TÍTULO DO FORM */
 .header {
   padding: 5px;
-  margin-top: 15px;
-  margin-left: 90px;
+  text-align: center;
   color: #443106;
   text-shadow: 4px 4px 10px rgba(100, 65, 0, 0.2);
 }
 
+/* FORMULÁRIO EM DUAS COLUNAS*/
 .form {
-  padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
 .form-control {
-  margin-bottom: 5px;
-  padding-bottom: 10px;
   position: relative;
 }
 
 .form-control label {
-    padding: 2px;
-    display: inline-block;
-    font-size: 13px;
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 .form-control input {
-    border: 2px solid #f0f0f0;
-    display: block;
-    border-radius: 10px;
-    font-size: 11px;
-    width: 100%;
-    padding: 10px;
+  border: 2px solid #f0f0f0;
+  border-radius: 10px;
+  font-size: 13px;
+  width: 100%;
+  padding: 8px;
 }
 
 .form-control i {
   position: absolute;
-  top: 45px;
+  top: 38px;
   right: 25px;
   visibility: hidden;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .form-control small {
-    position: absolute;
-    bottom: 0;
-    left: 10px;
-    visibility: hidden;
-}
-
-.form button {
-  background: linear-gradient(145deg, #cead71, #f5e1d0);
-  color: #443106;
-  border: none;
-  border-radius: 30px;
-  padding: 10px 20px;
+  visibility: hidden;
+  color: #e74c3c;
   font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
-  transition: all 0.3s ease;
-  margin-left: 150px;
-}
-
-/* Efeito ao passar o mouse */
-.form button:hover {
- background: linear-gradient(145deg, #cead71, #f5e1d0);
-  transform: scale(1.05);
-  box-shadow: 0 6px 15px rgba(100, 58, 0, 0.2);
-}
-
-/* Efeito de clique */
-.form button:active {
-  transform: scale(0.97);
-  box-shadow: 0 2px 6px rgba(100, 48, 0, 0.25);
-}
-
-.form-control.success input {
-  border-color: #2ecc71;
 }
 
 .form-control.error input {
   border-color: #e74c3c;
 }
 
-.form-control.success i.bi-check-circle {
+.form-control.error .bi-exclamation-circle {
+  color: #e74c3c;
+  visibility: visible;
+}
+
+.form-control.error .bi-check-circle {
+  visibility: hidden;
+}
+
+.form-control.error small {
+  visibility: visible;
+}
+
+.form-control.success input {
+  border-color: #2ecc71;
+}
+
+.form-control.success .bi-check-circle {
   color: #2ecc71;
   visibility: visible;
 }
 
-.form-control.error i.bi-exclamation-circle {
-  color: #e74c3c;
-  visibility: visible;
-}
- 
-.form-control.error small {
-  visibility: visible;
-  color: #e74c3c;
+.form-control.success .bi-exclamation-circle {
+  visibility: hidden;
 }
 
-/* Formatação do menu */
-
-#cabecalho{
-    display: flex;
-    padding: 20px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-
+.form-control.success small {
+  visibility: hidden;
 }
 
-#menu {
-    margin-top: 10px;
-  
+.form button {
+  grid-column: span 2;
+  justify-self: center;
+  background: linear-gradient(145deg, #cead71, #f5e1d0);
+  color: #443106;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 25px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
+  transition: all 0.3s ease;
+  width: 150px;
 }
- 
+
+.form button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(100, 58, 0, 0.2);
+}

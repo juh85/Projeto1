@@ -33,51 +33,44 @@ placa.addEventListener("input", function () {
   }
 });
 
+const nomesCampos = {
+  username: "Proprietário",
+  carro: "Modelo do carro",
+  placa: "Placa",
+  vaga: "Número da vaga",
+  torre: "Torre",
+  apt: "Apartamento",
+}; 
+
+// Eventos para validar em tempo real
+[username, carro, placa, vaga, torre, apartamento].forEach((input) => {
+  input.addEventListener("input", () => validarCampo(input));
+});
+
+// Validação individual de cada campo
+function validarCampo(input) {
+  const id = input.id;
+  const valor = input.value.trim();
+
+  if (valor === "") {
+    setErrorFor(input, `O campo ${nomesCampos[id]} é obrigatório`);
+    return;
+  }
+
+  // Validação especial para a placa
+  if (id === "placa" && !validarPlaca(valor)) {
+    setErrorFor(input, "Placa inválida");
+    return;
+  }
+
+  setSuccessFor(input);
+}
+
+// Função principal de validação ao enviar
 function checkInputs() {
-  const usernameValue = username.value.trim(); // .trim() limpa os espaços antes e depois do texto;
-  const carroValue = carro.value.trim();
-  const placaValue = placa.value.trim();
-  const vagaValue = vaga.value.trim();
-  const torreValue = torre.value.trim();
-  const apartamentoValue = apartamento.value.trim();
-
-  if (usernameValue === "") {
-    setErrorFor(username, "O nome do proprietário é obrigatório");
-  } else {
-    setSuccessFor(username);
-  }
-
-  if (carroValue === "") {
-    setErrorFor(carro, "O modelo do carro é obrigatório");
-  } else {
-    setSuccessFor(carro);
-  }
-
-  if (placaValue === "") {
-    setErrorFor(placa, "A placa é obrigatória");
-  } else if (!validarPlaca(placaValue)) {
-    setErrorFor(placa, "Placa inválida");
-  } else {
-    setSuccessFor(placa);
-  }
-
-  if (vagaValue === "") {
-    setErrorFor(vaga, "O número da vaga é obrigatório");
-  } else {
-    setSuccessFor(vaga);
-  }
-
-  if (torreValue === "") {
-    setErrorFor(torre, "O número da torre é obrigatório");
-  } else {
-    setSuccessFor(torre);
-  }
-
-  if (apartamentoValue === "") {
-    setErrorFor(apartamento, "O número do apartamento é obrigatório");
-  } else {
-    setSuccessFor(apartamento);
-  }
+  [username, carro, placa, vaga, torre, apartamento].forEach((input) =>
+    validarCampo(input)
+  );
 
   // Validar se todos os campos estão preenchidos
   const formControls = form.querySelectorAll(".form-control");
