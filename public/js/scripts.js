@@ -81,7 +81,46 @@ function checkInputs() {
 
   if (formIsValid) {
     console.log("o formulario está 100% válido");
+    enviarDados();
   }
+}
+
+// Função para enviar dados ao servidor
+function enviarDados() {
+  const dados = {
+    username: username.value,
+    carro: carro.value,
+    placa: placa.value,
+    vaga: vaga.value,
+    torre: torre.value,
+    apt: apartamento.value
+  };
+
+  fetch('http://localhost:3000/cadastrar', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(dados)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert('Veículo cadastrado com sucesso!');
+      // Limpa o formulário
+      form.reset();
+      // Remove as classes de sucesso dos campos
+      form.querySelectorAll('.form-control').forEach(control => {
+        control.className = 'form-control';
+      });
+    } else {
+      alert('Erro ao cadastrar veículo. Tente novamente.');
+    }
+  })
+  .catch(error => {
+    console.error('Erro:', error);
+    alert('Erro ao conectar com o servidor. Verifique se o servidor está rodando.');
+  });
 }
 
 function setErrorFor(input, message) {

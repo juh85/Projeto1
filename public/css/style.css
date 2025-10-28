@@ -55,7 +55,7 @@
 }
 
 body {
-  background-image: url("Imagens/fundo-de-textura.jpg") !important;
+  background-image: url("../img/Imagens/fundo-de-textura.jpg") !important;
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
@@ -91,26 +91,32 @@ body {
 
 .form-control {
   position: relative;
+  border: 2px solid #f0f0f0;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #fff;
 }
 
 .form-control label {
   display: block;
   font-size: 14px;
   margin-bottom: 5px;
+  padding: 5px 8px;
+  border-radius: 5px;
 }
 
 .form-control input {
-  border: 2px solid #f0f0f0;
-  border-radius: 10px;
-  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
   width: 100%;
   padding: 8px;
 }
 
 .form-control i {
   position: absolute;
-  top: 38px;
-  right: 25px;
+  top: 52px;
+  right: 30px;
   visibility: hidden;
   font-size: 16px;
 }
