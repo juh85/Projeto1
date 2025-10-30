@@ -5,11 +5,7 @@
   "main": "backend/server.js",
   "scripts": {
     "start": "node backend/server.js",
-    "start:adm": "node backend/serverAdm.js",
-    "start:usua": "node backend/serverUsua.js",
-    "dev": "nodemon backend/server.js",
-    "dev:adm": "nodemon backend/serverAdm.js",
-    "dev:usua": "nodemon backend/serverUsua.js"
+    "dev": "nodemon backend/server.js"
   },
   "keywords": [],
   "author": "Juliana Cordeiro",
