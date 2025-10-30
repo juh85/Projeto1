@@ -2,10 +2,14 @@
   "name": "projeto1",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "backend/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node backend/server.js",
+    "start:adm": "node backend/serverAdm.js",
+    "start:usua": "node backend/serverUsua.js",
+    "dev": "nodemon backend/server.js",
+    "dev:adm": "nodemon backend/serverAdm.js",
+    "dev:usua": "nodemon backend/serverUsua.js"
   },
   "keywords": [],
   "author": "Juliana Cordeiro",
@@ -13,6 +17,7 @@
   "type": "module",
   "dependencies": {
     "express": "*",
+    "express-session": "^1.18.2",
     "mysql": "^2.18.1"
   },
   "devDependencies": {

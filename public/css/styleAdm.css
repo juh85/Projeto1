@@ -6,8 +6,6 @@
   padding: 0;
   font-family: "Nunito", sans-serif;
 }
-
-
 #cabecalho {
   position: fixed;
   top: 0;
@@ -18,9 +16,7 @@
   align-items: center;
   padding: 15px 40px;
   box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
-  z-index: 1000;
   background: linear-gradient(145deg, #cead71, #f5e1d0);
-  color: #443106;
 }
 
 #cabecalho h1 {
@@ -53,20 +49,29 @@
 #menu li {
   margin: 0 25px;
 }
-
 body {
+  /*box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
+  background: linear-gradient(145deg, #cead71, #f5e1d0);*/
   background-image: url("../img/Imagens/fundo-de-textura.jpg") !important;
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
   min-height: 100vh;
-  padding-top: 100px; /* espaço pro cabeçalho fixo */
+  padding-top: 85px; /* espaço pro cabeçalho fixo */
   display: flex;
   justify-content: center;
   align-items: flex-start;
 }
 
 .container {
+  width: 500px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+
+.containerUsu {
   width: 800px;
   border-radius: 10px;
   background-color: #fafafa;
@@ -75,25 +80,18 @@ body {
 }
 
 /*TÍTULO DO FORM */
-.header {
+.login {
   padding: 5px;
   text-align: center;
   color: #443106;
   text-shadow: 4px 4px 10px rgba(100, 65, 0, 0.2);
 }
 
-/* FORMULÁRIO EM DUAS COLUNAS*/
-.form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-}
-
 .form-control {
   position: relative;
   border: 2px solid #f0f0f0;
   border-radius: 10px;
-  padding: 10px;
+  padding: 8px;
   background-color: #fff;
 }
 
@@ -110,7 +108,7 @@ body {
   border-radius: 5px;
   font-size: 15px;
   width: 100%;
-  padding: 8px;
+  padding: 9px;
 }
 
 .form-control i {
@@ -161,9 +159,10 @@ body {
   visibility: hidden;
 }
 
-.form button {
-  grid-column: span 2;
-  justify-self: center;
+.btnEntrar {
+  display: block;
+  margin: 0 auto;
+  justify-content: center;
   background: linear-gradient(145deg, #cead71, #f5e1d0);
   color: #443106;
   border: none;
@@ -174,10 +173,38 @@ body {
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
   transition: all 0.3s ease;
+  width: 100px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.btnCadastrar {
+  display: block;
+  margin: 0 auto;
+  justify-content: center;
+  background: linear-gradient(145deg, #cead71, #f5e1d0);
+  color: #443106;
+  border: none;
+  border-radius: 30px;
+  padding: 8px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
+  transition: all 0.3s ease;
   width: 150px;
+  align-items: center;
+  margin-top: 7px;
+  grid-column: span 2;
 }
 
 .form button:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 15px rgba(100, 58, 0, 0.2);
+}
+
+.formUs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
