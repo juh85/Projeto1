@@ -7,7 +7,7 @@ function validarEmail(email) {
 // Função para realizar login
 async function fazerLogin(email, senha) {
     try {
-        const response = await fetch('http://localhost:3001/login', {
+        const response = await fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ async function fazerLogin(email, senha) {
 // Função para fazer logout
 async function fazerLogout() {
     try {
-        const response = await fetch('http://localhost:3001/logout', {
+        const response = await fetch('http://localhost:3000/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ async function fazerLogout() {
 // Função para verificar se o usuário está logado
 async function verificarLogin() {
     try {
-        const response = await fetch('http://localhost:3001/verificar-login', {
+        const response = await fetch('http://localhost:3000/verificar-login', {
             method: 'GET',
             credentials: 'include' 
         });
