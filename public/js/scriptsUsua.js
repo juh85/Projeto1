@@ -40,7 +40,17 @@ function validarCPF(cpf){
 
   return true;
 
-}
+};
+
+const cpfInput = document.getElementById("cpf");
+
+cpfInput.addEventListener("input", () => {
+  // Limita o tamanho máximo para 11 caracteres
+  if (cpfInput.value.length > 11) {
+    cpfInput.value = cpfInput.value.slice(0, 11);
+  }
+});
+
 
 const nomeCampo = {
   email: "Email",

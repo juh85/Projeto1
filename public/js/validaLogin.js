@@ -4,19 +4,62 @@ function validarEmail(email) {
     return regex.test(email);
 }
 
+// Função para testar conexão com o servidor
+async function testarServidor() {
+    try {
+        const response = await fetch('http://localhost:3000/test', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.json();
+        console.log('Servidor está respondendo:', data);
+        return true;
+    } catch (error) {
+        console.error('Servidor não está respondendo:', error);
+        return false;
+    }
+}
+
 // Função para realizar login
 async function fazerLogin(email, senha) {
     try {
+        // Primeiro verifica se o servidor está respondendo
+        const servidorOk = await testarServidor();
+        if (!servidorOk) {
+            throw new Error('Não foi possível conectar ao servidor. Verifique se ele está rodando na porta 3000.');
+        }
+
+        console.log('Enviando requisição de login...');
+        console.log('URL: http://localhost:3000/login');
+        console.log('Dados:', { email, senha: senha ? '***' : 'vazia' });
+        
         const response = await fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            credentials: 'include', // Importante para enviar cookies da sessão
             body: JSON.stringify({ email, senha })
         });
 
+        console.log('Resposta recebida - Status:', response.status);
+        console.log('Resposta recebida - OK:', response.ok);
+
+        if (!response.ok) {
+            let errorData;
+            try {
+                errorData = await response.json();
+                console.log('Dados do erro:', errorData);
+            } catch (e) {
+                console.error('Erro ao parsear JSON da resposta de erro:', e);
+                errorData = { message: `Erro HTTP ${response.status}: ${response.statusText}` };
+            }
+            throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log('Dados de sucesso recebidos:', data);
         
         if (data.success) {
             // Login bem-sucedido
@@ -32,8 +75,24 @@ async function fazerLogin(email, senha) {
             return false;
         }
     } catch (error) {
-        console.error('Erro:', error);
-        alert('Erro ao conectar com o servidor. Verifique se o servidor está rodando.');
+        console.error('Erro completo:', error);
+        console.error('Nome do erro:', error.name);
+        console.error('Mensagem do erro:', error.message);
+        
+        let mensagemErro = 'Erro ao conectar com o servidor.\n\n';
+        
+        if (error.message.includes('fetch')) {
+            mensagemErro += 'Não foi possível conectar ao servidor.\n';
+            mensagemErro += 'Possíveis causas:\n';
+            mensagemErro += '1. O servidor não está rodando\n';
+            mensagemErro += '2. A porta 3000 está bloqueada\n';
+            mensagemErro += '3. Problema de rede/firewall\n\n';
+            mensagemErro += 'Verifique o console do terminal onde o servidor deve estar rodando.';
+        } else {
+            mensagemErro += error.message;
+        }
+        
+        alert(mensagemErro);
         return false;
     }
 }
@@ -45,8 +104,7 @@ async function fazerLogout() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            credentials: 'include'
+            }
         });
 
         const data = await response.json();
@@ -67,8 +125,7 @@ async function fazerLogout() {
 async function verificarLogin() {
     try {
         const response = await fetch('http://localhost:3000/verificar-login', {
-            method: 'GET',
-            credentials: 'include' 
+            method: 'GET'
         });
 
         const data = await response.json();
