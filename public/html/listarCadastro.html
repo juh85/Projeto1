@@ -26,7 +26,7 @@
 
   <body>
     <header id="cabecalho">
-      <h1>Área Administrativa</h1>
+      <h1><a href="./areaAdm.html">Área Administrativa</a></h1>
       <nav id="menu">
         <ul>
           <li><a href="./index.html">Cadastrar Veiculo</a></li>
@@ -59,68 +59,86 @@
           <script>
             // Função assíncrona para carregar os dados da API
             async function carregarDados() {
-                try {
-                    // Fazer a requisição para a API
-                    const response = await fetch('http://localhost:3000/listaCadastro');
+              try {
+                // Fazer a requisição para a API
+                const response = await fetch(
+                  "http://localhost:3000/listaCadastro"
+                );
 
-                    if (!response.ok) {
-                        throw new Error('Erro ao buscar dados');
-                    }
-                    // Converter a resposta para JSON
-                    const dados = await response.json();
-
-                    // Obter o corpo da tabela html
-                    const tabelaCorpo = document.getElementById('tabelaCorpo');
-
-                    // Iterar sobre os dados e criar as linhas da tabela
-                    dados.forEach(item => {
-                        const linha = document.createElement('tr');
-
-                        // Criar celulas para cada coluna
-                        const celulaId_veiculo = document.createElement('td');
-                        celulaId_veiculo.textContent = item.id_veiculo;
-                        linha.appendChild(celulaId_veiculo);
-
-                        const celulaProprietario = document.createElement('td');
-                        celulaProprietario.textContent = item.proprietario;
-                        linha.appendChild(celulaProprietario);
-
-                        const celulaModelo = document.createElement('td');
-                        celulaModelo.textContent = item.modelo;
-                        linha.appendChild(celulaModelo);
-
-                        const celulaPlaca = document.createElement('td');
-                        celulaPlaca.textContent = item.placa;
-                        linha.appendChild(celulaPlaca);
-
-                        const celulaNumVagas = document.createElement('td');
-                        celulaNumVagas.textContent = item.numVagas;
-                        linha.appendChild(celulaNumVagas);
-
-                        const celulaTorre = document.createElement('td');
-                        celulaTorre.textContent = item.torre;
-                        linha.appendChild(celulaTorre);
-
-                        const celulaApartamento = document.createElement('td');
-                        celulaApartamento.textContent = item.apartamento;
-                        linha.appendChild(celulaApartamento);
-                        
-                        const celulaOpcoes = document.createElement('td');
-                        celulaOpcoes.textContent = item.opcoes;
-                        linha.appendChild(celulaOpcoes);
-
-                        tabelaCorpo.appendChild(linha);
-                    });
-                } catch (error) {
-                    console.error('Não foi possível carregar os dados:', error);
+                if (!response.ok) {
+                  throw new Error("Erro ao buscar dados");
                 }
+                // Converter a resposta para JSON
+                const dados = await response.json();
+
+                // Obter o corpo da tabela html
+                const tabelaCorpo = document.getElementById("tabelaCorpo");
+
+                // Iterar sobre os dados e criar as linhas da tabela
+                dados.forEach((item) => {
+                  const linha = document.createElement("tr");
+
+                  // Criar celulas para cada coluna
+                  const celulaId_veiculo = document.createElement("td");
+                  celulaId_veiculo.textContent = item.id_veiculo;
+                  linha.appendChild(celulaId_veiculo);
+
+                  const celulaProprietario = document.createElement("td");
+                  celulaProprietario.textContent = item.proprietario;
+                  linha.appendChild(celulaProprietario);
+
+                  const celulaModelo = document.createElement("td");
+                  celulaModelo.textContent = item.modelo;
+                  linha.appendChild(celulaModelo);
+
+                  const celulaPlaca = document.createElement("td");
+                  celulaPlaca.textContent = item.placa;
+                  linha.appendChild(celulaPlaca);
+
+                  const celulaNumVagas = document.createElement("td");
+                  celulaNumVagas.textContent = item.numVagas;
+                  linha.appendChild(celulaNumVagas);
+
+                  const celulaTorre = document.createElement("td");
+                  celulaTorre.textContent = item.torre;
+                  linha.appendChild(celulaTorre);
+
+                  const celulaApartamento = document.createElement("td");
+                  celulaApartamento.textContent = item.apartamento;
+                  linha.appendChild(celulaApartamento);
+
+                  const celulaOpcoes = document.createElement("td");
+                  celulaOpcoes.textContent = item.opcoes;
+                  linha.appendChild(celulaOpcoes);
+
+                  tabelaCorpo.appendChild(linha);
+                });
+              } catch (error) {
+                console.error("Não foi possível carregar os dados:", error);
+              }
             }
             // Chamar a função para carregar os dados quando a página for carregada
-            document.addEventListener('DOMContentLoaded', carregarDados);
+            document.addEventListener("DOMContentLoaded", carregarDados);
           </script>
-
         </tbody>
       </table>
     </div>
+<script src="./footer.html"></script>
+<!-- Importar footer MELHORAR CODIGO
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const rodape = new XMLHttpRequest();
+    request.open("GET", "./footer.html", true);
+    request.onreadystatechange = function() {
+      if (request.readyState === 4 && request.status === 200) {
+        var footerContainer = document.createElement("div");
+        footerContainer.innerHTML = request.responseText;
+        document.body.appendChild(footerContainer);
+      }
+    };
+    request.send();
+  });
+</script> -->
+
   </body>
 </html>
