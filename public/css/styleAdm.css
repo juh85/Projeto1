@@ -16,7 +16,7 @@
   align-items: center;
   padding: 15px 40px;
   box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
-  background: linear-gradient(145deg, #cead71, #f5e1d0);
+  background:#f5e1d0;
 }
 
 #cabecalho h1 {
@@ -208,3 +208,116 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
+
+/* ÁREA ADMINISTRATIVA */
+.adm_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-position: center top 80px;
+}
+
+.sair {
+  display: inline-block;
+  background: #cead71;
+  color: #443106;
+  border-radius: 10px;
+  padding: 8px 20px;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
+  text-decoration: none;
+}
+
+.card-container {
+  margin-top: 100px;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+}
+
+.card {
+  background: #fafafa;
+  padding: 18px 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(100, 65, 0, 0.1);
+}
+
+.card a {
+  text-decoration: none;
+  color: #443106;
+  font-weight: 600;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  transition: 0.2s ease;
+}
+
+
+/* ÁREA ADMINISTRATIVA LISTA DE VEÍCULOS */
+.container_adm {
+  width: 1000px;
+  border-radius: 10px;
+  background-color: #fafafa;
+  box-shadow: 0 2px 5px rgba(100, 65, 0, 0.3);
+  padding: 20px;
+}
+
+.adm {
+  padding: 5px;
+  color: #443106;
+  text-shadow: 4px 4px 10px rgba(100, 65, 0, 0.2);
+}
+
+.lista {
+  width: 100%;
+  border-spacing: 0;
+  overflow: hidden; /* para o cabeçalho ficar fixo e arredondado */
+  border: 1px solid #cead71; /* borda principal */
+  border-radius: 10px;
+}
+
+.lista thead {
+  text-align: left;
+  font-weight: 600;
+}
+
+/* ficar fixo ao rolar o cabeçalho dentro do container */
+.lista thead th {
+  position: sticky;
+  top: 0;
+  padding: 14px 16px;
+  font-weight: 600;
+  border-bottom: 1px solid #443106; /* linha do header mais forte */
+  z-index: 2;
+}
+
+.lista tbody tr {
+  background: transparent;
+  transition: background-color .18s ease, transform .12s ease;
+}
+
+
+/* Zebra rows */
+.lista tbody tr:nth-child(even) {
+  background: rgba(182, 165, 133, 0.05);
+}
+
+/* Hover na linha */
+.lista tbody tr:hover {
+  background: rgba(100, 58, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+/* Células */
+.lista td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eeeae2;
+  vertical-align: middle;
+  color: #443106;
+  text-align: center;
+}
+
+

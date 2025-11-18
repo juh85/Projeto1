@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lista de Veiculos</title>
+    <!-- Importando o CSS do Bootstrap via CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+
+    <link rel="stylesheet" href="../css/styleAdm.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Importando o JavaScript do Bootstrap via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+
+  <body>
+    <header id="cabecalho">
+      <h1>Área Administrativa</h1>
+      <nav id="menu">
+        <ul>
+          <li><a href="./index.html">Cadastrar Veiculo</a></li>
+          <li><a href="./novoUsuario.html">Novo Usuario</a></li>
+          <li><a href="./contato.html">Contato</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="container_adm">
+      <div class="adm">
+        <h2>Lista de Veiculos</h2>
+      </div>
+
+      <table class="lista">
+        <thead>
+          <tr>
+            <th>Indentificador</th>
+            <th>Proprietário</th>
+            <th>Modelo do carro</th>
+            <th>Placa</th>
+            <th>Número da vaga</th>
+            <th>Torre</th>
+            <th>Apartamento</th>
+            <th>Opções</th>
+          </tr>
+        </thead>
+
+        <tbody id="tabelaCorpo">
+          <script>
+            // Função assíncrona para carregar os dados da API
+            async function carregarDados() {
+                try {
+                    // Fazer a requisição para a API
+                    const response = await fetch('http://localhost:3000/listaCadastro');
+
+                    if (!response.ok) {
+                        throw new Error('Erro ao buscar dados');
+                    }
+                    // Converter a resposta para JSON
+                    const dados = await response.json();
+
+                    // Obter o corpo da tabela html
+                    const tabelaCorpo = document.getElementById('tabelaCorpo');
+
+                    // Iterar sobre os dados e criar as linhas da tabela
+                    dados.forEach(item => {
+                        const linha = document.createElement('tr');
+
+                        // Criar celulas para cada coluna
+                        const celulaId_veiculo = document.createElement('td');
+                        celulaId_veiculo.textContent = item.id_veiculo;
+                        linha.appendChild(celulaId_veiculo);
+
+                        const celulaProprietario = document.createElement('td');
+                        celulaProprietario.textContent = item.proprietario;
+                        linha.appendChild(celulaProprietario);
+
+                        const celulaModelo = document.createElement('td');
+                        celulaModelo.textContent = item.modelo;
+                        linha.appendChild(celulaModelo);
+
+                        const celulaPlaca = document.createElement('td');
+                        celulaPlaca.textContent = item.placa;
+                        linha.appendChild(celulaPlaca);
+
+                        const celulaNumVagas = document.createElement('td');
+                        celulaNumVagas.textContent = item.numVagas;
+                        linha.appendChild(celulaNumVagas);
+
+                        const celulaTorre = document.createElement('td');
+                        celulaTorre.textContent = item.torre;
+                        linha.appendChild(celulaTorre);
+
+                        const celulaApartamento = document.createElement('td');
+                        celulaApartamento.textContent = item.apartamento;
+                        linha.appendChild(celulaApartamento);
+                        
+                        const celulaOpcoes = document.createElement('td');
+                        celulaOpcoes.textContent = item.opcoes;
+                        linha.appendChild(celulaOpcoes);
+
+                        tabelaCorpo.appendChild(linha);
+                    });
+                } catch (error) {
+                    console.error('Não foi possível carregar os dados:', error);
+                }
+            }
+            // Chamar a função para carregar os dados quando a página for carregada
+            document.addEventListener('DOMContentLoaded', carregarDados);
+          </script>
+
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
