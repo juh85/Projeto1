@@ -63,7 +63,8 @@ body {
   padding-top: 80px; /* espaço pro cabeçalho fixo */
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
 
 .container {
@@ -180,4 +181,24 @@ body {
 .form button:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 15px rgba(100, 58, 0, 0.2);
+}
+
+/* RODAPE */
+#footer {
+  width: 100%;
+  display: flex;
+  font-weight: 600;
+  margin-top: 40px;
+}
+
+.rodape {
+  background-color: #f5e1d0;
+  padding: 7px;
+  width: 100%;
+}
+
+.rodape p {
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }

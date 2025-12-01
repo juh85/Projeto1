@@ -6,11 +6,13 @@ const vaga = document.getElementById("vaga");
 const torre = document.getElementById("torre");
 const apartamento = document.getElementById("apt");
 
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+if (form && username && carro && placa && vaga && torre && apartamento) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  checkInputs();
-});
+    checkInputs();
+  });
+}
 
 function validarPlaca(placa) {
   // Remove espaços e transforma em maiúscula
@@ -23,15 +25,16 @@ function validarPlaca(placa) {
 
   return padraoAntigo.test(placa) || padraoMercosul.test(placa);
 }
+if (placa) {
+  placa.addEventListener("input", function () {
+    this.value = this.value.toUpperCase().trim();
 
-placa.addEventListener("input", function () {
-  this.value = this.value.toUpperCase().trim();
-
-  // Limita o tamanho máximo para 7 caracteres
-  if (this.value.length > 7) {
-    this.value = this.value.slice(0, 7);
-  }
-});
+    // Limita o tamanho máximo para 7 caracteres
+    if (this.value.length > 7) {
+      this.value = this.value.slice(0, 7);
+    }
+  });
+}
 
 const nomesCampos = {
   username: "Proprietário",
@@ -40,12 +43,14 @@ const nomesCampos = {
   vaga: "Número da vaga",
   torre: "Torre",
   apt: "Apartamento",
-}; 
+};
 
 // Eventos para validar em tempo real
-[username, carro, placa, vaga, torre, apartamento].forEach((input) => {
-  input.addEventListener("input", () => validarCampo(input));
-});
+if (username && carro && placa && vaga && torre && apartamento) {
+  [username, carro, placa, vaga, torre, apartamento].forEach((input) => {
+    input.addEventListener("input", () => validarCampo(input));
+  });
+}
 
 // Validação individual de cada campo
 function validarCampo(input) {
@@ -93,34 +98,36 @@ function enviarDados() {
     placa: placa.value,
     vaga: vaga.value,
     torre: torre.value,
-    apt: apartamento.value
+    apt: apartamento.value,
   };
 
-  fetch('http://localhost:3000/cadastrar', {
-    method: 'POST',
+  fetch("http://localhost:3000/cadastrar", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(dados)
+    body: JSON.stringify(dados),
   })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      alert('Veículo cadastrado com sucesso!');
-      // Limpa o formulário
-      form.reset();
-      // Remove as classes de sucesso dos campos
-      form.querySelectorAll('.form-control').forEach(control => {
-        control.className = 'form-control';
-      });
-    } else {
-      alert('Erro ao cadastrar veículo. Tente novamente.');
-    }
-  })
-  .catch(error => {
-    console.error('Erro:', error);
-    alert('Erro ao conectar com o servidor. Verifique se o servidor está rodando.');
-  });
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        alert("Veículo cadastrado com sucesso!");
+        // Limpa o formulário
+        form.reset();
+        // Remove as classes de sucesso dos campos
+        form.querySelectorAll(".form-control").forEach((control) => {
+          control.className = "form-control";
+        });
+      } else {
+        alert("Erro ao cadastrar veículo. Tente novamente.");
+      }
+    })
+    .catch((error) => {
+      console.error("Erro:", error);
+      alert(
+        "Erro ao conectar com o servidor. Verifique se o servidor está rodando."
+      );
+    });
 }
 
 function setErrorFor(input, message) {
@@ -140,3 +147,31 @@ function setSuccessFor(input) {
   // Adicionar a class de sucesso
   formControl.className = "form-control success";
 }
+
+// Carregar o footer dinamicamente
+document.addEventListener('DOMContentLoaded', () => {
+  const rodapeElement = document.getElementById('footer');
+
+  if (!rodapeElement) {
+      console.error('Elemento footer não encontrado na página.');
+      return;
+  }
+
+  // Tenta carregar o footer usando um caminho relativo direto
+  fetch('footer.html')
+      .then(response => {
+          if (!response.ok) {
+              // Se houver um erro HTTP (ex: 404 Not Found), lança um erro.
+              throw new Error(`Erro HTTP: ${response.status}`);
+          }
+          return response.text();
+      })
+      .then(html => {
+          rodapeElement.innerHTML = html;
+          console.log('Footer carregado com sucesso!');
+      })
+      .catch(error => {
+          // Captura qualquer erro de fetch ou erro HTTP e loga no console.
+          console.error('Não foi possível carregar o footer:', error.message);
+      });
+});

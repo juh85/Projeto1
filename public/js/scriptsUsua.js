@@ -175,3 +175,32 @@ function setSuccessFor(input) {
   //Adiciona a class de sucesso
   formControl.className = "form-control success";
 }
+
+// Carregar o footer dinamicamente
+document.addEventListener('DOMContentLoaded', () => {
+  const rodapeElement = document.getElementById('footer');
+
+  if (!rodapeElement) {
+      console.error('Elemento footer não encontrado na página.');
+      return;
+  }
+
+  // Tenta carregar o footer usando um caminho relativo direto
+  fetch('footer.html')
+      .then(response => {
+          if (!response.ok) {
+              // Se houver um erro HTTP (ex: 404 Not Found), lança um erro.
+              throw new Error(`Erro HTTP: ${response.status}`);
+          }
+          return response.text();
+      })
+      .then(html => {
+          rodapeElement.innerHTML = html;
+          console.log('Footer carregado com sucesso!');
+      })
+      .catch(error => {
+          // Captura qualquer erro de fetch ou erro HTTP e loga no console.
+          console.error('Não foi possível carregar o footer:', error.message);
+      });
+});
+
