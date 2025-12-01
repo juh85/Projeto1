@@ -123,22 +123,23 @@
         </tbody>
       </table>
     </div>
-<script src="./footer.html"></script>
-<!-- Importar footer MELHORAR CODIGO
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const rodape = new XMLHttpRequest();
-    request.open("GET", "./footer.html", true);
-    request.onreadystatechange = function() {
-      if (request.readyState === 4 && request.status === 200) {
-        var footerContainer = document.createElement("div");
-        footerContainer.innerHTML = request.responseText;
-        document.body.appendChild(footerContainer);
-      }
-    };
-    request.send();
-  });
-</script> -->
 
+    <div id="footer"></div>
+    <!-- Carregar o footer dinamicamente -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("./footer.html")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro ao carregar footer: " + response.status);
+            }
+            return response.text();
+          })
+          .then((html) => {
+            document.getElementById("footer").innerHTML = html;
+          })
+          .catch((err) => console.error(err));
+      });
+    </script>
   </body>
 </html>

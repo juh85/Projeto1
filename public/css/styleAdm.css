@@ -65,8 +65,10 @@ body {
   padding-top: 85px; /* espaço pro cabeçalho fixo */
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+  flex-direction: column;
 }
+
 
 .container {
   width: 500px;
@@ -282,6 +284,8 @@ body {
   background-color: #fafafa;
   box-shadow: 0 2px 5px rgba(100, 65, 0, 0.3);
   padding: 20px;
+  overflow: hidden; /* para o cabeçalho ficar fixo e arredondado */
+  flex-shrink: 0; /* não encolhe para dar espaço ao footer */ /*empurra o conteúdo para baixo*/
 }
 
 .adm {
@@ -292,9 +296,6 @@ body {
 
 .lista {
   width: 100%;
-  border-spacing: 0;
-  overflow: hidden; /* para o cabeçalho ficar fixo e arredondado */
-  border: 1px solid #cead71; /* borda principal */
   border-radius: 10px;
 }
 
@@ -305,7 +306,6 @@ body {
 
 /* ficar fixo ao rolar o cabeçalho dentro do container */
 .lista thead th {
-  position: sticky;
   top: 0;
   padding: 14px 16px;
   font-weight: 600;
@@ -336,8 +336,26 @@ body {
   padding: 12px 16px;
   border-bottom: 1px solid #eeeae2;
   vertical-align: middle;
-  color: #443106;
   text-align: center;
 }
 
+/* RODAPE */
+#footer {
+  width: 100%;
+  display: flex;
+  font-weight: 600;
+  margin-top: 40px;
+}
+
+.rodape {
+  background-color: #f5e1d0;
+  padding: 7px;
+  width: 100%;
+}
+
+.rodape p {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
 
