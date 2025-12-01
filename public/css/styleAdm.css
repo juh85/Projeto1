@@ -220,7 +220,7 @@ body {
 .adm_body {
   flex-direction: column; /* colocar o titulo e o botão de sair em coluna */
   align-items: center;
-  padding-top: 5px;
+  padding-top: 200px;
 }
 
 .adm_title {
@@ -286,6 +286,7 @@ body {
   padding: 20px;
   overflow: hidden; /* para o cabeçalho ficar fixo e arredondado */
   flex-shrink: 0; /* não encolhe para dar espaço ao footer */ /*empurra o conteúdo para baixo*/
+  margin-bottom: 40px;
 }
 
 .adm {
@@ -344,7 +345,7 @@ body {
   width: 100%;
   display: flex;
   font-weight: 600;
-  margin-top: 40px;
+  margin-top: auto;
 }
 
 .rodape {
