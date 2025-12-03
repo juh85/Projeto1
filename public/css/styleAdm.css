@@ -71,7 +71,7 @@ body {
 
 
 .container {
-  width: 500px;
+  width: 600px;
   border-radius: 10px;
   background-color: #fafafa;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
@@ -279,7 +279,7 @@ body {
 
 /* ÁREA ADMINISTRATIVA LISTA DE VEÍCULOS */
 .container_adm {
-  width: 1000px;
+  width: auto;
   border-radius: 10px;
   background-color: #fafafa;
   box-shadow: 0 2px 5px rgba(100, 65, 0, 0.3);
@@ -298,6 +298,7 @@ body {
 .lista {
   width: 100%;
   border-radius: 10px;
+  list-style: none; /* remove as bolinhas da lista */
 }
 
 .lista thead {
@@ -338,6 +339,7 @@ body {
   border-bottom: 1px solid #eeeae2;
   vertical-align: middle;
   text-align: center;
+  
 }
 
 /* RODAPE */

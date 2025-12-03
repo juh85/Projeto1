@@ -107,9 +107,44 @@
                   celulaApartamento.textContent = item.apartamento;
                   linha.appendChild(celulaApartamento);
 
+                  
                   const celulaOpcoes = document.createElement("td");
                   celulaOpcoes.textContent = item.opcoes;
                   linha.appendChild(celulaOpcoes);
+
+                  // criar o elemento do botão
+                  const botaoEditar = document.createElement('button');
+
+                  const botaoExcluir = document.createElement('button');
+
+                  // define o texto do botão
+                  botaoEditar.textContent = 'Editar';
+                  botaoEditar.classList.add('btn', 'btn-primary');
+
+                  botaoExcluir.textContent = 'Excluir';
+                  botaoExcluir.classList.add('btn', 'btn-danger');
+
+                  // adicionar um evento de clique ao botão
+                  botaoEditar.addEventListener('click', function() {
+                    const novoEditar = document.createElement('li');
+                  });
+
+                  botaoExcluir.addEventListener('click', function() {
+                    const novoItem = document.createElement('li');
+                  });
+
+                  //criar um container flex para colocar os botões lado a lado
+                  const container = document.createElement('div');
+                  container.style.display = 'flex';
+                  container.style.gap = '8px';
+
+                  // adicionar o botão no container
+                  container.appendChild(botaoEditar);
+                  container.appendChild(botaoExcluir);
+
+                  // adicionar na celula de opções
+                  celulaOpcoes.appendChild(container);
+                  
 
                   tabelaCorpo.appendChild(linha);
                 });
