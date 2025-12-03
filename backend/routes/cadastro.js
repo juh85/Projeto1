@@ -30,6 +30,32 @@ router.post('/cadastrar', (req, res) => {
     });
 });
 
+
+// Rota para excluir um cadastro de veiculos
+router.delete('/excluirCadastro/:id_veiculo', (req, res) => {
+    const id_veiculo = req.params.id_veiculo;
+
+    // Validar se o ID é um número válido
+    if (!id_veiculo || isNaN(id_veiculo)) {
+        return res.status(400).send({success: false, message: 'ID do veículo inválido'});
+    }
+
+    const sql = 'DELETE FROM CADASTROVEICULO WHERE id_veiculo = ?';
+
+    con.query(sql, [id_veiculo], (err, result) => {
+        if(err) {
+            console.error('Erro ao excluir cadastro:', err);
+            res.status(500).send({success: false, message: 'Erro ao excluir cadastro', error: err.message});
+        } else {
+            // Verificar se alguma linha foi realmente excluída
+            if (result.affectedRows === 0) {
+                return res.status(404).send({success: false, message: 'Cadastro não encontrado'});
+            }
+            res.status(200).send({success: true, message: 'Cadastro excluido com sucesso!', id: result.affectedRows});
+        }
+    })
+});
+
 export default router;
 
 

@@ -107,36 +107,71 @@
                   celulaApartamento.textContent = item.apartamento;
                   linha.appendChild(celulaApartamento);
 
-                  
                   const celulaOpcoes = document.createElement("td");
                   celulaOpcoes.textContent = item.opcoes;
                   linha.appendChild(celulaOpcoes);
 
                   // criar o elemento do botão
-                  const botaoEditar = document.createElement('button');
+                  const botaoEditar = document.createElement("button");
 
-                  const botaoExcluir = document.createElement('button');
+                  const botaoExcluir = document.createElement("button");
 
                   // define o texto do botão
-                  botaoEditar.textContent = 'Editar';
-                  botaoEditar.classList.add('btn', 'btn-primary');
+                  botaoEditar.textContent = "Editar";
+                  botaoEditar.classList.add("btn", "btn-primary");
 
-                  botaoExcluir.textContent = 'Excluir';
-                  botaoExcluir.classList.add('btn', 'btn-danger');
+                  botaoExcluir.textContent = "Excluir";
+                  botaoExcluir.classList.add("btn", "btn-danger");
 
                   // adicionar um evento de clique ao botão
-                  botaoEditar.addEventListener('click', function() {
-                    const novoEditar = document.createElement('li');
+                  botaoEditar.addEventListener("click", function () {
+                    const novoEditar = document.createElement("li");
                   });
 
-                  botaoExcluir.addEventListener('click', function() {
-                    const novoItem = document.createElement('li');
+                  botaoExcluir.addEventListener("click", async function () {
+                    const id = item.id_veiculo;
+
+                    if (!confirm("Deseja realmente excluir o cadastro?")) {
+                      return;
+                    }
+
+                    try {
+                      // chamar a API para excluir o cadastro
+                      const responseExcluir = await fetch(
+                        `http://localhost:3000/excluirCadastro/${id}`,
+                        {
+                          method: "DELETE",
+                        }
+                      );
+
+                      // Verificar o tipo de conteúdo da resposta
+                      const contentType = responseExcluir.headers.get("content-type");
+                      
+                      let data;
+                      if (contentType && contentType.includes("application/json")) {
+                        data = await responseExcluir.json();
+                      } else {
+                        throw new Error("Resposta não é JSON");
+                      }
+
+                      if (!responseExcluir.ok) {
+                        throw new Error(data.message || `Erro ao excluir o cadastro (${responseExcluir.status})`);
+                      }
+
+                      //remove a linha da tabela
+                      linha.remove();
+
+                      alert(data.message || "Cadastro excluido com sucesso!");
+                    } catch (error) {
+                      console.error("Erro ao excluir o cadastro:", error);
+                      alert(error.message || "Erro ao excluir o cadastro. Tente novamente.");
+                    }
                   });
 
                   //criar um container flex para colocar os botões lado a lado
-                  const container = document.createElement('div');
-                  container.style.display = 'flex';
-                  container.style.gap = '8px';
+                  const container = document.createElement("div");
+                  container.style.display = "flex";
+                  container.style.gap = "8px";
 
                   // adicionar o botão no container
                   container.appendChild(botaoEditar);
@@ -144,7 +179,6 @@
 
                   // adicionar na celula de opções
                   celulaOpcoes.appendChild(container);
-                  
 
                   tabelaCorpo.appendChild(linha);
                 });

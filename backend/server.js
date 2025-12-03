@@ -46,6 +46,16 @@ app.use(cadastroRouter);
 app.use(usuarioRouter);
 app.use(loginRouter);
 
+// Middleware para tratar rotas não encontradas (404) - sempre retorna JSON
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: 'Rota não encontrada',
+        path: req.path,
+        method: req.method
+    });
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log('=================================');
