@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>EditarCadastro</title>
+    <!-- Importando o CSS do Bootstrap via CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+
+    <link rel="stylesheet" href="../css/styleIndex.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Importando o JavaScript do Bootstrap via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+
+  <body>
+    <header id="cabecalho">
+      <h1>Editar Cadastro</h1>
+      <nav id="menu">
+        <ul>
+          <li><a href="./areaAdm.html">Área Administrativa</a></li>
+          <li><a href="./listarCadastro.html">Lista de Veiculos</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="header">
+        <h2>Editar carro</h2>
+      </div>
+
+      <script>
+        // pegar o id da url
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+        console.log(id);
+
+        // função assíncrona para carregar os dados do cadastro
+        async function carregarDadosEdi() {
+          try {
+            // fazer a requisição para a API
+            const responseEdi = await fetch(
+              `http://localhost:3000/buscarCadastro/${id}`
+            );
+            if (!responseEdi.ok) {
+              throw new Error("Erro ao buscar dados");
+            }
+            // converter a resposta para Json
+            const dadosEdi = await responseEdi.json();
+
+            // preencher os campos do formulario
+            username.value = dadosEdi.proprietario;
+            modelo.value = dadosEdi.modelo;
+            placa.value = dadosEdi.placa;
+            vaga.value = dadosEdi.numVagas;
+            torre.value = dadosEdi.torre;
+            apt.value = dadosEdi.apartamento;
+
+            //função para clicar no botão de atualizar
+            const botaoAtualizar = document.getElementById("botaoAtualizar");
+            botaoAtualizar.addEventListener("click", async function (event) {
+
+              event.preventDefault();
+
+              const body = {
+                proprietario: username.value,
+                modelo: modelo.value,
+                placa: placa.value,
+                numVagas: vaga.value,
+                torre: torre.value,
+                apartamento: apt.value,
+              };
+
+              const response = await fetch(
+                `http://localhost:3000/editarCadastro/${id}`,
+                {
+                  method: "PUT",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(body),
+                }
+              );
+
+              if (response.ok) {
+                alert("Cadastro atualizado com sucesso!");
+              } else {
+                alert("Erro ao atualizar cadastro.");
+              }
+            });
+          } catch (error) {
+            console.error("Erro ao carregar dados:", error);
+            alert("Erro ao carregar dados. Tente novamente.");
+          }
+        }
+
+        // chamar a função para carregar os dados quando a pagina for carregada
+        document.addEventListener("DOMContentLoaded", carregarDadosEdi);
+      </script>
+
+      <form id="form" class="form">
+        <div class="form-control">
+          <label for="username">Proprietário:</label>
+          <input type="text" id="username"/>
+          <i class="bi bi-exclamation-circle"></i>
+          <i class="bi bi-check-circle"></i>
+          <small>Mensagem de erro</small>
+        </div>
+
+        <div class="form-control">
+          <label for="modelo">Modelo do Carro:</label>
+          <input type="text" id="modelo"/>
+          <i class="bi bi-exclamation-circle"></i>
+          <i class="bi bi-check-circle"></i>
+          <small>Mensagem de erro</small>
+        </div>
+
+        <div class="form-control">
+          <label for="placa">Placa:</label>
+          <input type="text" id="placa"/>
+          <i class="bi bi-exclamation-circle"></i>
+          <i class="bi bi-check-circle"></i>
+          <small>Mensagem de erro</small>
+        </div>
+
+        <div class="form-control">
+          <label for="vaga">Número da vaga:</label>
+          <input type="text" id="vaga"/>
+          <i class="bi bi-exclamation-circle"></i>
+          <i class="bi bi-check-circle"></i>
+          <small>Mensagem de erro</small>
+        </div>
+
+        <div class="form-control">
+          <label for="torre">Torre:</label>
+          <input type="text" id="torre"/>
+          <i class="bi bi-exclamation-circle"></i>
+          <i class="bi bi-check-circle"></i>
+          <small>Mensagem de erro</small>
+        </div>
+
+        <div class="form-control">
+          <label for="apt">Apartamento:</label>
+          <input
+            type="text" id="apt"/>
+          <i class="bi bi-exclamation-circle"></i>
+          <i class="bi bi-check-circle"></i>
+          <small>Mensagem de erro</small>
+        </div>
+
+        <button type="submit" id="botaoAtualizar">Atualizar</button>
+      </form>
+    </div>
+
+    <script
+      src="https://kit.fontawesome.com/f9e19193d6.js"
+      crossorigin="anoymous"
+    ></script>
+
+    <div id="footer"></div>
+
+    <script src="../js/scripts.js"></script>
+  </body>
+</html>
