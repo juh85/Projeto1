@@ -124,8 +124,14 @@
                   botaoExcluir.classList.add("btn", "btn-danger");
 
                   // adicionar um evento de clique ao botão
+
                   botaoEditar.addEventListener("click", function () {
-                    const novoEditar = document.createElement("li");
+                    const id = item.id_veiculo;
+
+                    // redireciona para a pagina de edição
+                    window.location.href = `editarCadastro.html?id=${id}`;
+                    // chamar a API para buscar o cadastro
+                    
                   });
 
                   botaoExcluir.addEventListener("click", async function () {
