@@ -74,47 +74,59 @@ router.delete("/excluirCadastro/:id_veiculo", (req, res) => {
       });
     }
   });
+});
 
-  // Rota para buscar um cadastro de veiculos
-  router.get("/buscarCadastro/:id_veiculo", (req, res) => {
-    const id = req.params.id_veiculo;
+// Rota para buscar um cadastro de veiculos
+router.get("/buscarCadastro/:id_veiculo", (req, res) => {
+  const id = req.params.id_veiculo;
 
-    const sql = `SELECT * FROM CADASTROVEICULO WHERE ID_VEICULO = ${id}`;
+  const sql = "SELECT * FROM CADASTROVEICULO WHERE ID_VEICULO = ?";
 
-    con.query(sql, (err, result) => {
-      if (err) {
-        res.status(500).send({ error: err.message });
-      } else if (result.length === 0) {
-        res.status(404).send({ message: "Cadastro não encontrado" });
-      } else {
-        res.send(result[0]);
-      }
-    });
+  con.query(sql, [id], (err, result) => {
+    if (err) {
+      console.error("Erro ao buscar cadastro:", err);
+      res.status(500).send({ 
+        success: false,
+        message: "Erro ao buscar cadastro",
+        error: err.message 
+      });
+    } else if (result.length === 0) {
+      res.status(404).send({ 
+        success: false,
+        message: "Cadastro não encontrado" 
+      });
+    } else {
+      res.status(200).send(result[0]);
+    }
   });
+});
 
-  // Rota para atualizar um cadastro de veiculos
-  router.put("/editarCadastro/:id_veiculo", (req, res) => {
-    const id = req.params.id_veiculo;
-    const dados = req.body;
+// Rota para atualizar um cadastro de veiculos
+router.put("/editarCadastro/:id_veiculo", (req, res) => {
+  const id = req.params.id_veiculo;
+  const dados = req.body;
 
-    const sql = `UPDATE CADASTROVEICULO SET 
-    PROPRIETARIO = '${dados.proprietario}', 
-    PLACA = '${dados.placa}',
-    MODELO = '${dados.modelo}',
-    NUMVAGAS = '${dados.numVagas}',
-    TORRE = '${dados.torre}',
-    APARTAMENTO = '${dados.apartamento}'
-    WHERE ID_VEICULO = ${id}`;
-    
-    con.query(sql, (err, result) => {
-        if (err) {
-            res.status(500).send({error: err.message});
-        } else if (result.affectedRows === 0) {
-            res.status(404).send({message: "Cadastro não encontrado"});
-        } else {
-            res.status(200).send({success: true, message: "Cadastro atualizado com sucesso!", id: result.affectedRows});
-        }
-    })
+  const sql = `UPDATE CADASTROVEICULO SET 
+  PROPRIETARIO = '${dados.proprietario}', 
+  PLACA = '${dados.placa}',
+  MODELO = '${dados.modelo}',
+  NUMVAGAS = '${dados.numVagas}',
+  TORRE = '${dados.torre}',
+  APARTAMENTO = '${dados.apartamento}'
+  WHERE ID_VEICULO = ${id}`;
+
+  con.query(sql, (err, result) => {
+    if (err) {
+      res.status(500).send({ error: err.message });
+    } else if (result.affectedRows === 0) {
+      res.status(404).send({ message: "Cadastro não encontrado" });
+    } else {
+      res.status(200).send({
+        success: true,
+        message: "Cadastro atualizado com sucesso!",
+        id: result.affectedRows,
+      });
+    }
   });
 });
 

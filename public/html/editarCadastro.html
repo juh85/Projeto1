@@ -58,7 +58,7 @@
             }
             // converter a resposta para Json
             const dadosEdi = await responseEdi.json();
-
+            
             // preencher os campos do formulario
             username.value = dadosEdi.proprietario;
             modelo.value = dadosEdi.modelo;
@@ -66,13 +66,15 @@
             vaga.value = dadosEdi.numVagas;
             torre.value = dadosEdi.torre;
             apt.value = dadosEdi.apartamento;
-
+            console.log(dadosEdi);
+            
             //função para clicar no botão de atualizar
             const botaoAtualizar = document.getElementById("botaoAtualizar");
             botaoAtualizar.addEventListener("click", async function (event) {
 
               event.preventDefault();
 
+              // obter valores atualizados dos campos
               const body = {
                 proprietario: username.value,
                 modelo: modelo.value,
@@ -102,7 +104,7 @@
             alert("Erro ao carregar dados. Tente novamente.");
           }
         }
-
+      
         // chamar a função para carregar os dados quando a pagina for carregada
         document.addEventListener("DOMContentLoaded", carregarDadosEdi);
       </script>
