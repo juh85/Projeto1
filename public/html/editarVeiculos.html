@@ -30,7 +30,7 @@
       <nav id="menu">
         <ul>
           <li><a href="./areaAdm.html">Área Administrativa</a></li>
-          <li><a href="./listarCadastro.html">Lista de Veiculos</a></li>
+          <li><a href="./listarVeiculos.html">Lista de Veiculos</a></li>
         </ul>
       </nav>
     </header>
@@ -51,7 +51,7 @@
           try {
             // fazer a requisição para a API
             const responseEdi = await fetch(
-              `http://localhost:3000/buscarCadastro/${id}`
+              `http://localhost:3000/buscarVeiculos/${id}`
             );
             if (!responseEdi.ok) {
               throw new Error("Erro ao buscar dados");
@@ -85,7 +85,7 @@
               };
 
               const response = await fetch(
-                `http://localhost:3000/editarCadastro/${id}`,
+                `http://localhost:3000/editarVeiculos/${id}`,
                 {
                   method: "PUT",
                   headers: { "Content-Type": "application/json" },

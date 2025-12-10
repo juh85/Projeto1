@@ -101,7 +101,7 @@ function enviarDados() {
     apt: apartamento.value,
   };
 
-  fetch("http://localhost:3000/cadastrar", {
+  fetch("http://localhost:3000/cadastrarVeiculos", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

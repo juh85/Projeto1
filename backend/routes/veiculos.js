@@ -4,7 +4,7 @@ import con from "../conexao.js";
 const router = express.Router();
 
 // Rota para obter todos os cadastros de veículos
-router.get("/listaCadastro", (req, res) => {
+router.get("/listarVeiculos", (req, res) => {
   con.query("SELECT * FROM CADASTROVEICULO", (err, result) => {
     if (err) {
       console.error("Erro ao buscar dados:", err);
@@ -16,7 +16,7 @@ router.get("/listaCadastro", (req, res) => {
 });
 
 // Rota para cadastrar novo veículo
-router.post("/cadastrar", (req, res) => {
+router.post("/cadastrarVeiculo", (req, res) => {
   const { username, carro, placa, vaga, torre, apt } = req.body;
 
   const sql =
@@ -40,7 +40,7 @@ router.post("/cadastrar", (req, res) => {
 });
 
 // Rota para excluir um cadastro de veiculos
-router.delete("/excluirCadastro/:id_veiculo", (req, res) => {
+router.delete("/excluirVeiculos/:id_veiculo", (req, res) => {
   const id_veiculo = req.params.id_veiculo;
 
   // Validar se o ID é um número válido
@@ -77,7 +77,7 @@ router.delete("/excluirCadastro/:id_veiculo", (req, res) => {
 });
 
 // Rota para buscar um cadastro de veiculos
-router.get("/buscarCadastro/:id_veiculo", (req, res) => {
+router.get("/buscarVeiculos/:id_veiculo", (req, res) => {
   const id = req.params.id_veiculo;
 
   const sql = "SELECT * FROM CADASTROVEICULO WHERE ID_VEICULO = ?";
@@ -102,7 +102,7 @@ router.get("/buscarCadastro/:id_veiculo", (req, res) => {
 });
 
 // Rota para atualizar um cadastro de veiculos
-router.put("/editarCadastro/:id_veiculo", (req, res) => {
+router.put("/editarVeiculos/:id_veiculo", (req, res) => {
   const id = req.params.id_veiculo;
   const dados = req.body;
 

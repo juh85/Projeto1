@@ -1,5 +1,5 @@
 import express from "express";
-import cadastroRouter from './routes/cadastro.js';
+import cadastroRouter from './routes/veiculos.js';
 import usuarioRouter from './routes/usuario.js';
 import loginRouter from './routes/login.js';
 

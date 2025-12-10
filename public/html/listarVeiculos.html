@@ -62,7 +62,7 @@
               try {
                 // Fazer a requisição para a API
                 const response = await fetch(
-                  "http://localhost:3000/listaCadastro"
+                  "http://localhost:3000/listaVeiculos"
                 );
 
                 if (!response.ok) {
@@ -129,7 +129,7 @@
                     const id = item.id_veiculo;
 
                     // redireciona para a pagina de edição
-                    window.location.href = `editarCadastro.html?id=${id}`;
+                    window.location.href = `editarVeiculos.html?id=${id}`;
                     // chamar a API para buscar o cadastro
                     
                   });
@@ -144,7 +144,7 @@
                     try {
                       // chamar a API para excluir o cadastro
                       const responseExcluir = await fetch(
-                        `http://localhost:3000/excluirCadastro/${id}`,
+                        `http://localhost:3000/excluirVeiculos/${id}`,
                         {
                           method: "DELETE",
                         }
