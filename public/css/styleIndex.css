@@ -21,6 +21,12 @@
   z-index: 1000;
   background:#f5e1d0;
   color: #443106;
+  text-decoration: none;
+  
+}
+#cabecalho a {
+  text-decoration: none;
+  color: #443106;
 }
 
 #cabecalho h1 {

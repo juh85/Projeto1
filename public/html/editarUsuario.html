@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Editar Usuário</title>
+    <!-- Importando o CSS do Bootstrap via CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+
+    <link rel="stylesheet" href="../css/styleIndex.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Importando o JavaScript do Bootstrap via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+
+  <body>
+    <header id="cabecalho">
+        <h1><a href="./areaAdm.html">Área Administrativa</a></h1>
+    </header>
+
+    <div class="container">
+      <div class="header">
+        <h2>Editar Usuário</h2>
+      </div>
+
+      <script>
+        // pegar o id da url
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get("id");
+        console.log(id);
+
+         // função assíncrona para carregar os dados do usuário
+         async function carregarDadosUsu() {
+            try {
+                // fazer requisição para a API
+                const responseUsu = await fetch(`http://localhost:3000/buscarUsuario/${id}`);
+                if (!responseUsu.ok) {
+                    throw new Error("Erro ao buscar dados");
+                }
+                // converter a resposta para Json
+                const dadosUsu = await responseUsu.json();
+
+                // preencher os campos do formulario
+                username.value = dadosUsu.nome;
+                cpf.value = dadosUsu.cpf;
+                cargo.value = dadosUsu.cargo;
+                email.value = dadosUsu.email;
+                senha.value = dadosUsu.senha;
+                console.log(dadosUsu);
+
+                // função para clicar no botão de atualizar
+                const botaoAtualizar = document.getElementById("botaoAtualizar");
+                botaoAtualizar.addEventListener("click", async function (event) {
+                    event.preventDefault();
+
+                    // obter valores atualizados dos campos
+                    const bodyUsu = {
+                        nome: username.value,
+                        cpf: cpf.value,
+                        cargo: cargo.value,
+                        email: email.value,
+                        senha: senha.value,
+                    };
+
+                    const response =await fetch(`http://localhost:3000/editarUsuario/${id}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(bodyUsu),
+                    }
+                );
+
+                if (responseUsu.ok) {
+                    alert("Usuário atualizado com sucesso!");
+                } else {
+                    alert("Erro ao atualizar usuário.");
+                }
+                });
+            } catch (error) {
+                console.error("Erro ao carregar dados:", error);
+                alert("Erro ao carregar dados. Tente novamente.");
+            }
+         }
+         // chamar a função para carregar os dados quando a pagina for carregada
+         document.addEventListener("DOMContentLoaded", carregarDadosUsu);
+      </script>

@@ -74,94 +74,66 @@
                 // Obter o corpo da tabela html
                 const tabelaCorpo = document.getElementById("tabelaCorpo");
 
-                // Iterar sobre os dados e criar as linhas da tabela
+                // Limpar a tabela IMPORTANTE PARA EVITAR DUPLICAÇÃO
+                tabelaCorpo.innerHTML = "";
+
+                // criar as linhas da tabela
                 dados.forEach((item) => {
                   const linha = document.createElement("tr");
 
-                  // Criar celulas para cada coluna
-                  const celulaId_veiculo = document.createElement("td");
-                  celulaId_veiculo.textContent = item.id_veiculo;
-                  linha.appendChild(celulaId_veiculo);
+                  // Criar celulas para cada coluna (FORMA ANTIGA E REPETITIVA, POIS TERIA QUE CRIAR UMA CELULA PARA CADA COLUNA)
+                  // const celulaId_veiculo = document.createElement("td");
+                  // celulaId_veiculo.textContent = item.id_veiculo;
+                  // linha.appendChild(celulaId_veiculo);
 
-                  const celulaProprietario = document.createElement("td");
-                  celulaProprietario.textContent = item.proprietario;
-                  linha.appendChild(celulaProprietario);
+                  // Criar celulas para cada coluna (FORMA MAIS SIMPLIFICADA PARA EVITAR REPETIÇÃO)
+                  linha.innerHTML = `
+                      <td>${item.id_veiculo}</td>
+                      <td>${item.proprietario}</td>
+                      <td>${item.modelo}</td>
+                      <td>${item.placa}</td>
+                      <td>${item.numVagas}</td>
+                      <td>${item.torre}</td>
+                      <td>${item.apartamento}</td>
+                      <td></td>
+                 `;
 
-                  const celulaModelo = document.createElement("td");
-                  celulaModelo.textContent = item.modelo;
-                  linha.appendChild(celulaModelo);
+                  const celulaOpcoes = linha.lastElementChild;
 
-                  const celulaPlaca = document.createElement("td");
-                  celulaPlaca.textContent = item.placa;
-                  linha.appendChild(celulaPlaca);
-
-                  const celulaNumVagas = document.createElement("td");
-                  celulaNumVagas.textContent = item.numVagas;
-                  linha.appendChild(celulaNumVagas);
-
-                  const celulaTorre = document.createElement("td");
-                  celulaTorre.textContent = item.torre;
-                  linha.appendChild(celulaTorre);
-
-                  const celulaApartamento = document.createElement("td");
-                  celulaApartamento.textContent = item.apartamento;
-                  linha.appendChild(celulaApartamento);
-
-                  const celulaOpcoes = document.createElement("td");
-                  celulaOpcoes.textContent = item.opcoes;
-                  linha.appendChild(celulaOpcoes);
-
-                  // criar o elemento do botão
+                  // criar o elemento do botão Editar
                   const botaoEditar = document.createElement("button");
-
-                  const botaoExcluir = document.createElement("button");
-
-                  // define o texto do botão
                   botaoEditar.textContent = "Editar";
-                  botaoEditar.classList.add("btn", "btn-primary");
+                  botaoEditar.className = "btn btn-primary";
 
-                  botaoExcluir.textContent = "Excluir";
-                  botaoExcluir.classList.add("btn", "btn-danger");
-
-                  // adicionar um evento de clique ao botão
-
-                  botaoEditar.addEventListener("click", function () {
-                    const id = item.id_veiculo;
-
+                  // criar evento do botão de editar
+                  botaoEditar.onclick = () => {
                     // redireciona para a pagina de edição
-                    window.location.href = `editarVeiculos.html?id=${id}`;
-                    // chamar a API para buscar o cadastro
-                    
-                  });
+                    window.location.href = `editarVeiculos.html?id=${item.id_veiculo}`;
+                  };
 
-                  botaoExcluir.addEventListener("click", async function () {
-                    const id = item.id_veiculo;
+                  // criar o elemento do botão Excluir
+                  const botaoExcluir = document.createElement("button");
+                  botaoExcluir.textContent = "Excluir";
+                  botaoExcluir.className = "btn btn-danger";
 
-                    if (!confirm("Deseja realmente excluir o cadastro?")) {
+                  botaoExcluir.onclick = async () => {
+                    if (!confirm("Deseja realmente excluir o cadastro?"))
                       return;
-                    }
 
                     try {
                       // chamar a API para excluir o cadastro
                       const responseExcluir = await fetch(
-                        `http://localhost:3000/excluirVeiculos/${id}`,
+                        `http://localhost:3000/excluirVeiculos/${item.id_veiculo}`,
                         {
                           method: "DELETE",
                         }
                       );
-
-                      // Verificar o tipo de conteúdo da resposta
-                      const contentType = responseExcluir.headers.get("content-type");
-                      
-                      let data;
-                      if (contentType && contentType.includes("application/json")) {
-                        data = await responseExcluir.json();
-                      } else {
-                        throw new Error("Resposta não é JSON");
-                      }
-
+                      const data = await responseExcluir.json();
                       if (!responseExcluir.ok) {
-                        throw new Error(data.message || `Erro ao excluir o cadastro (${responseExcluir.status})`);
+                        throw new Error(
+                          data.message ||
+                            `Erro ao excluir o cadastro (${responseExcluir.status})`
+                        );
                       }
 
                       //remove a linha da tabela
@@ -170,9 +142,12 @@
                       alert(data.message || "Cadastro excluido com sucesso!");
                     } catch (error) {
                       console.error("Erro ao excluir o cadastro:", error);
-                      alert(error.message || "Erro ao excluir o cadastro. Tente novamente.");
+                      alert(
+                        error.message ||
+                          "Erro ao excluir o cadastro. Tente novamente."
+                      );
                     }
-                  });
+                  };
 
                   //criar um container flex para colocar os botões lado a lado
                   const container = document.createElement("div");
@@ -180,8 +155,7 @@
                   container.style.gap = "8px";
 
                   // adicionar o botão no container
-                  container.appendChild(botaoEditar);
-                  container.appendChild(botaoExcluir);
+                  container.append(botaoEditar, botaoExcluir);
 
                   // adicionar na celula de opções
                   celulaOpcoes.appendChild(container);

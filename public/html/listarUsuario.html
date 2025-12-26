@@ -72,34 +72,83 @@
                 // Obter o corpo da tabela html
                 const tabelaCorpo = document.getElementById("tabelaCorpo");
 
+                // limpa a tabela IMPORTANTE PARA EVITAR DUPLICAÇÃO
+                tabelaCorpo.innerHTML = "";
+
                 // Iterar sobre os dados e criar as linhas da tabela
                 dadosUsu.forEach((item) => {
                   const linha = document.createElement("tr");
 
-                  // Criar celulas para cada coluna
-                  const celulaId_usuario = document.createElement("td");
-                  celulaId_usuario.textContent = item.id_usuario;
-                  linha.appendChild(celulaId_usuario);
+                  // criar as linhas da tabela
+                  linha.innerHTML = `
+                    <td>${item.id_usuario}</td>
+                    <td>${item.email}</td>
+                    <td>${item.nome}</td>
+                    <td>${item.cpf}</td>
+                    <td>${item.cargo}</td>
+                    <td></td>
+                  `;
 
-                  const celulaEmail = document.createElement("td");
-                  celulaEmail.textContent = item.email;
-                  linha.appendChild(celulaEmail);
+                  const celulaOpcoes = linha.lastElementChild;
 
-                  const celulaNome = document.createElement("td");
-                  celulaNome.textContent = item.nome;
-                  linha.appendChild(celulaNome);
+                  // criar o elemento do botão Editar
+                  const botaoEditar = document.createElement("button");
+                  botaoEditar.textContent = "Editar";
+                  botaoEditar.className = "btn btn-primary";
 
-                  const celulaCpf = document.createElement("td");
-                  celulaCpf.textContent = item.cpf;
-                  linha.appendChild(celulaCpf);
+                  // criar evento do botão de editar
+                  botaoEditar.onclick = () => {
+                    // redireciona para a pagina de edição
+                    window.location.href = `editarUsuario.html?id=${item.id_usuario}`;
+                  };
 
-                  const celulaCargo = document.createElement("td");
-                  celulaCargo.textContent = item.cargo;
-                  linha.appendChild(celulaCargo);
+                  // criar o elemento do botão Excluir
+                  const botaoExcluir = document.createElement("button");
+                  botaoExcluir.textContent = "Excluir";
+                  botaoExcluir.className = "btn btn-danger";
 
-                  const celulaOpcoes = document.createElement("td");
-                  celulaOpcoes.textContent = item.opcoes;
-                  linha.appendChild(celulaOpcoes);
+                  // criar o evento do botão excluir
+                  botaoExcluir.onclick = async () => {
+                    if (!confirm("Deseja realmente excluir o usuário?")) return;
+
+                    try {
+                      // chamar a API para excluir o usuário
+                      const responseExcluir = await fetch(
+                        `http://localhost:3000/excluirUsuario/${item.id_usuario}`,
+                        {
+                          method: "DELETE",
+                        }
+                      );
+                      const data = await responseExcluir.json();
+                      if (!responseExcluir.ok) {
+                        throw new Error(
+                          data.message ||
+                            `Erro ao excluir o usuário (${responseExcluir.status})`
+                        );
+                      }
+
+                      //remove a linha da tabela
+                      linha.remove();
+                      alert(data.message || "Usuário excluído com sucesso!");
+                    } catch (error) {
+                      console.error("Erro ao excluir o usuário:", error);
+                      alert(
+                        error.message ||
+                          "Erro ao excluir o usuário. Tente novamente."
+                      );
+                    }
+                  };
+
+                  // criar um container flex para colocar os botões lado a lado
+                  const container = document.createElement("div");
+                  container.style.display = "flex";
+                  container.style.gap = "8px";
+
+                  // adicionar o botão no container
+                  container.append(botaoEditar, botaoExcluir);
+
+                  // adicionar na celula de opções
+                  celulaOpcoes.appendChild(container);
 
                   tabelaCorpo.appendChild(linha);
                 });
@@ -116,6 +165,5 @@
 
     <div id="footer"></div>
     <script src="../js/scripts.js"></script>
-    
   </body>
 </html>

@@ -15,6 +15,7 @@ router.get("/listarVeiculos", (req, res) => {
   });
 });
 
+
 // Rota para cadastrar novo veículo
 router.post("/cadastrarVeiculo", (req, res) => {
   const { username, carro, placa, vaga, torre, apt } = req.body;
