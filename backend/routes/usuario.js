@@ -31,7 +31,7 @@ router.post('/usuario', (req, res) => {
 });
 
 // Rota para excluir um usuário
-router.delete("/excluirUsuario/:id_usuario", (req, res) => {
+router.delete("/excluirUsuario/id_usuario", (req, res) => {
     const id_usuario = req.params.id_usuario;
 
     // Validar se o ID é um numero valido
@@ -73,14 +73,14 @@ router.get("/buscarUsuario/id_usuario", (req, res) => {
 });
 
 // Rota para atualizar um usuário
-router.put("/atualizarUsuario/:id_usuario", (req, res) => {
+router.put("/editarUsuario/id_usuario", (req, res) => {
     const id_usuario = req.params.id_usuario;
     const dadosU = req.body;
 
     const sqlU = `UPDATE USUARIO SET
     EMAIL = '${dadosU.email}',
     SENHA = '${dadosU.senha}',
-    NOME = '${dadosU.name}',
+    NOME = '${dadosU.nome}',
     CPF = '${dadosU.cpf}',
     CARGO = '${dadosU.cargo}'
     WHERE ID_USUARIO = ${id_usuario}`;
@@ -89,7 +89,7 @@ router.put("/atualizarUsuario/:id_usuario", (req, res) => {
         if(err) {
             res.status(500).send({ success: false, message: "Erro ao atualizar usuário", error: err.message});
         } else if (result.affectedRows === 0) {
-            result.status(404).send({ success: false, message: "Usuário não encontrado"});
+            res.status(404).send({ success: false, message: "Usuário não encontrado"});
         } else {
             res.status(200).send({ success: true, message: "Usuário atualizado com sucesso!", id: result.affectedRows});
         }
